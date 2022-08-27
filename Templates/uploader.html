@@ -1,0 +1,47 @@
+{%- extends "base.html" %}
+
+
+{% import "bootstrap/utils.html" as utils %}
+
+
+{% block content %}
+
+
+<div class="row mt-4">
+    <div class="col col-md-6 offset-md-3 alert alert-primary bg-danger text-white text-center">
+        <span class="h1">Add New Entry</span>
+    </div>
+</div>
+
+
+
+<form action="http://localhost:5000/uploader" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col col-md-9 offset-md-1">
+            <div class="row alert alert-warning bg-dark text-white">
+                <span class="col col-md-4 mt-0 h1">Model</span>
+                <span class="col col-md-4 mt-0 h1 border-left">Team</span>
+                <span class="col col-md-4 mt-0 h1 border-left text-right">Model Github url</span>
+            </div>
+            <div class="row">
+                <input type="hidden" name="id" id="id" value={{ score.id }}></input>
+                <input type="text" class="col col-md-4 mt-0 h1" name="model" id="model" value={{ score.model }}></input>
+                <input type="text" class="col col-md-4 mt-0 h1" name="team" id="team" value={{ score.team }}></input>
+                <input type="text" class="col col-md-4 mt-0 h1" name="model_link" id="model_link" value={{
+                    score.model_link }}></input>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-0">
+        <div class="col col-md-6 offset-md-4">
+            <p class="h2 mt-0 text-center">Generated text file</p>
+            <input type="file" class="h2 mt-0 float-right text-center" name="file" /><br>
+        </div>
+        <div class="col col-md-3 offset-md-7">
+            <input type="submit" class="h2 mt-0 float-right text-center" value="✔️ Submit" />
+        </div>
+    </div>
+</form>
+
+
+{%- endblock %}
