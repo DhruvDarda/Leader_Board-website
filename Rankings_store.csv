@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Rank,Team,Model,LID,POS,NER,SA,MT
 4,,,11,17,11,23,16
 1,,,5,9,5,3,10
@@ -6,8 +5,3 @@ Rank,Team,Model,LID,POS,NER,SA,MT
 1,Prateek,model,6,3,5,10,4
 1,Prateek,model,6,9,5,7,1
 1,Harshil,model,4,8,4,10,4
-=======
-Rank,Team,Model,LID,POS,NER,SA,MT
-4,,,11,17,11,23,16
-1,,,5,9,5,3,10
->>>>>>> ad875d3da4f01eb171fc6ff8f84769050a22aeec

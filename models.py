@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask_login import UserMixin
 from __init__ import db
 
@@ -18,12 +17,3 @@ class Score():
         self.team = team
         self.model_link = model_link
         self.file_name = file_name
-=======
-class Score():
-    def __init__(self, model, team, model_link, file_name="no_name", id='unique'):
-        self.id = id
-        self.model = model
-        self.team = team
-        self.model_link = model_link
-        self.file_name = file_name
->>>>>>> ad875d3da4f01eb171fc6ff8f84769050a22aeec

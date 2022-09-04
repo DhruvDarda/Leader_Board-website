@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {%- extends "base.html" %}
 
 {% import "bootstrap/utils.html" as utils %}
@@ -164,59 +163,3 @@
             onclick="location.href='/uploader'" />
     </div>
 </div>-->
-=======
-{%- extends "base.html" %}
-
-
-{% import "bootstrap/utils.html" as utils %}
-
-
-{% block content %}
-
-
-<div class="row mt-4">
-    <div class="col col-md-10 offset-md-1 alert alert-primary bg-danger text-white text-center">
-        <span class="h1">LEADERBOARD</span>
-    </div>
-</div>
-
-
-
-<div class="row">
-    <div class="col col-md-10 offset-md-1">
-        <div class="row alert alert-warning bg-dark text-white">
-            <span class="col col-1 mt-0 h4">Rank</span>
-            <span class="col col-2 mt-0 h4 border-left border-light">Team</span>
-            <span class="col col-2 mt-0 h4 border-left border-light text-center">Model</span>
-            <span class="col col-1.2 mt-0 h4 border-left border-light text-center">LID</span>
-            <span class="col col-1.2 mt-0 h4 border-left border-light text-center">POS</span>
-            <span class="col col-1.2 mt-0 h4 border-left border-light text-center">NER</span>
-            <span class="col col-1.2 mt-0 h4 border-left border-light text-center">SA</span>
-            <span class="col col-1.2 mt-0 h4 border-left border-light text-center">MT</span>
-        </div>
-        {% for score in scores %}
-        <div class="row alert alert-warning">
-            <input type="hidden" value={{ score.id }}></input>
-            <span class="col col-1 mt-0 h4">{{ score.Rank }}</span>
-            <span class="col col-2 mt-0 border-left border-dark h4 text-truncate">{{ score.Team }}</span>
-            <span class="col col-2 mt-0 border-left border-dark h4 text-truncate">{{ score.Model }}</span>
-            <span class="col col-1.2 mt-0 border-left border-dark h4">{{ score.LID }}</span>
-            <span class="col col-1.2 mt-0 border-left border-dark h4">{{ score.POS }}</span>
-            <span class="col col-1.2 mt-0 border-left border-dark h4">{{ score.NER }}</span>
-            <span class="col col-1.2 mt-0 border-left border-dark h4">{{ score.SA }}</span>
-            <span class="col col-1.2 mt-0 border-left border-dark h4">{{ score.MT }}</span>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-
-
-<div class="row">
-    <div class="col col-md-3 offset-md-6">
-        <input type="button" class="h1 mt-0 float-right text-center" value="➕ Add New Entry"
-            onclick="location.href='/uploader'" />
-    </div>
-</div>
-{%- endblock %}
->>>>>>> ad875d3da4f01eb171fc6ff8f84769050a22aeec
