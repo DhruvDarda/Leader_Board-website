@@ -39,6 +39,10 @@
                     <th scope="col">Team</th>
                     <th scope="col">Model</th>
                     <th scope="col">LID</th>
+                    {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
+                    <th scope="col">Admin Rights</th>
+                    {% endif %}
+
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +52,9 @@
                     <td>{{ score.Team }}</td>
                     <td>{{ score.Model }}</td>
                     <td>{{ score.LID }}</td>
+                    {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
+                    <td><button type="submit">Del</button></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

@@ -36,8 +36,9 @@ def get_post(post_id):
 
 @main.route("/")
 def index():
-    #scores = leaderboard.get_scores()
-    scores = LID.query.all()
+    rowdel = flask.request.values.get("model")
+    scores = leaderboard.get_scores()
+    #scores = User.query.all()
     return render_template("index.html",
                            scores=scores)
 

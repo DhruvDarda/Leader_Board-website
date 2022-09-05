@@ -42,6 +42,9 @@
                     <th scope="col">NER</th>
                     <th scope="col">SA</th>
                     <th scope="col">MT</th>
+                    {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
+                    <th scope="col">Admin Rights</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +58,9 @@
                     <td>{{ score.NER }}</td>
                     <td>{{ score.SA }}</td>
                     <td>{{ score.MT }}</td>
+                    {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
+                    <td><button type="submit" id = 'AdminDel'+score.id name = 'AdminDel'+score.id>Del</button></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
