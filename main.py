@@ -1,12 +1,14 @@
 import flask
 import os
-from flask import Flask, Blueprint, render_template, url_for, request, redirect
+import sqlite3
+from flask import Blueprint, render_template, url_for, request, redirect, abort
 from models import Score
 from werkzeug.utils import secure_filename, redirect
 from flask_login import login_required, current_user
 from datetime import datetime
 from __init__ import create_app, db
 from leaderboard import Leaderboard
+from models import *
 
 DEFAULT_ROUTE_LEADERBOARD = "main.index"
 DEFAULT_ROUTE_UPLOADER = "main.uploader"
@@ -16,9 +18,26 @@ main = Blueprint('main', __name__)
 leaderboard = Leaderboard()
 
 
+'''def get_db_connection():
+    conn = sqlite3.connect('LID.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def get_post(post_id):
+    conn = get_db_connection()
+    post = conn.execute('SELECT * FROM posts WHERE id = ?',
+                        (post_id,)).fetchone()
+    conn.close()
+    if post is None:
+        abort(404)
+    return post'''
+
+
 @main.route("/")
 def index():
-    scores = leaderboard.get_scores()
+    #scores = leaderboard.get_scores()
+    scores = LID.query.all()
     return render_template("index.html",
                            scores=scores)
 
@@ -66,6 +85,7 @@ def uploader():
         model_name = flask.request.values.get("model")
         team_name = flask.request.values.get("team")
         model_link = flask.request.values.get("model_link")
+        tasks = request.form.getlist('flexCheckChecked')
         now = datetime.now()
         f = request.files['file']
         name = model_name + '_' + team_name + '_' + \
@@ -73,7 +93,7 @@ def uploader():
         f.save(os.path.join(os.getcwd(), 'Entries', secure_filename(name)))
 
         score = Score(id=id, model=model_name,
-                      team=team_name, model_link=model_link, file_name=name)
+                      team=team_name, model_link=model_link, file_name=name, tasks=tasks)
         leaderboard.add_score(score)
 
         return redirect(url_for(DEFAULT_ROUTE_LEADERBOARD))
