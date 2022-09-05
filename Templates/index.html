@@ -59,7 +59,8 @@
                     <td>{{ score.SA }}</td>
                     <td>{{ score.MT }}</td>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
-                    <td><button type="submit" id = 'AdminDel'+score.id name = 'AdminDel'+score.id>Del</button></td>
+                    <td><button type="submit" id='AdminDel' +score.id name='AdminDel' +score.id>Delete Entry</button>
+                    </td>
                     {% endif %}
                 </tr>
                 {% endfor %}

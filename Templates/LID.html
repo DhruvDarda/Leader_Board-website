@@ -38,7 +38,7 @@
                     <th scope="col">Rank</th>
                     <th scope="col">Team</th>
                     <th scope="col">Model</th>
-                    <th scope="col">LID</th>
+                    <th scope="col">Github Link</th>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <th scope="col">Admin Rights</th>
                     {% endif %}
@@ -46,14 +46,15 @@
                 </tr>
             </thead>
             <tbody>
-                {% for score in scores %}
+                {% for score in post %}
                 <tr class="table-info">
-                    <th scope="row">{{ score.Rank }}</th>
-                    <td>{{ score.Team }}</td>
-                    <td>{{ score.Model }}</td>
-                    <td>{{ score.LID }}</td>
+                    <th scope="row">{{ score[4] }}</th>
+                    <td>{{ score[2] }}</td>
+                    <td>{{ score[1] }}</td>
+                    <td>{{ score[3] }}</td>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
-                    <td><button type="submit">Del</button></td>
+                    <td><button type="submit" id='AdminDel' +score.id name='AdminDel' +score.id>Delete Entry</button>
+                    </td>
                     {% endif %}
                 </tr>
                 {% endfor %}

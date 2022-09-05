@@ -1,6 +1,7 @@
 from ast import Pass
 from flask_login import UserMixin
 from __init__ import db
+import random
 
 
 class User(UserMixin, db.Model):
@@ -12,7 +13,7 @@ class User(UserMixin, db.Model):
 
 
 class Score():
-    def __init__(self, model, team, model_link, file_name="no_name", id='unique', tasks=[]):
+    def __init__(self, model, team, model_link, file_name="no_name", id=random.randint(1, 10000), tasks=[]):
         self.id = id
         self.model = model
         self.team = team

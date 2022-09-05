@@ -24,10 +24,9 @@ leaderboard = Leaderboard()
     return conn
 
 
-def get_post(post_id):
+def get_post():
     conn = get_db_connection()
-    post = conn.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
+    post = conn.execute('SELECT * FROM LID').fetchall()
     conn.close()
     if post is None:
         abort(404)
@@ -64,7 +63,11 @@ def POS():
 @main.route('/LID')  # profile page that return 'profile'
 @login_required
 def LID():
-    return render_template('LID.html', name=current_user.name)
+    conn = sqlite3.connect('db_LID.sqlite')
+    post = conn.execute("SELECT * FROM LID").fetchall()
+    conn.close()
+    print(post)
+    return render_template('LID.html', post=post)
 
 
 @main.route('/SA')  # profile page that return 'profile'
@@ -80,6 +83,7 @@ def MT():
 
 
 @main.route("/uploader", methods=["GET", "POST"])
+@login_required
 def uploader():
     if request.method == 'POST':
         id = flask.request.values.get("id")

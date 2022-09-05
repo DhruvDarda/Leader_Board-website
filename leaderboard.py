@@ -32,8 +32,9 @@ class Leaderboard:
         self.rankings = self.rankings.append(new_rank, ignore_index=True)
         self.rankings.to_csv('Rankings_store.csv', index=False)
 
+        funcs = {'LID': LID, 'NER': NER, 'POS': POS, 'SA': SA, 'MT': MT}
         for i in tasks:
-            data = i(id=id, team=team_name, model=model_name,
-                     link=model_link, rank=random.randint(1, 10))
+            data = funcs[i](id=id, team=team_name, model=model_name,
+                            link=model_link, rank=random.randint(1, 10))
             db.session.add(data)
         db.session.commit()
