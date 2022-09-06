@@ -45,12 +45,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for score in scores %}
+                {% for score in post %}
                 <tr class="table-info">
-                    <th scope="row">{{ score.Rank }}</th>
-                    <td>{{ score.Team }}</td>
-                    <td>{{ score.Model }}</td>
-                    <td>{{ score.LID }}</td>
+                    <th scope="row">{{ score[4] }}</th>
+                    <td>{{ score[2] }}</td>
+                    <td>{{ score[1] }}</td>
+                    <td>{{ score[3] }}</td>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <td><button type="submit" id='AdminDel' +score.id name='AdminDel' +score.id>Delete Entry</button>
                     </td>
@@ -114,5 +114,10 @@
     firstTab.show()
 </script>
 
-
+<div class="row">
+    <div class="col col-md-1 offset-md-9">
+        <input type="button" class="h6 mt-0 float-right text-center" value="➕ Add New Entry"
+            onclick="location.href='/uploader'" />
+    </div>
+</div>
 {%- endblock %}

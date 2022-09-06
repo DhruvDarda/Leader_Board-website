@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
 
 
 class Score():
-    def __init__(self, model, team, model_link, file_name="no_name", id=random.randint(1, 10000), tasks=[]):
+    def __init__(self, model, team, model_link, file_name="no_name", id=1, tasks=[]):
         self.id = id
         self.model = model
         self.team = team
@@ -22,10 +22,24 @@ class Score():
         self.tasks = tasks
 
 
+class Leaderboard_CM(db.Model):
+    __bind_key__ = 'leaderboard'
+    id = db.Column(db.Integer, primary_key=True)
+    model = db.Column(db.String(100))
+    team = db.Column(db.String(100))
+    link = db.Column(db.String(1000))
+    rank = db.Column(db.Integer)
+    lid = db.Column(db.Float)
+    ner = db.Column(db.Float)
+    pos = db.Column(db.Float)
+    sa = db.Column(db.Float)
+    mt = db.Column(db.Float)
+
+
 class LID(db.Model):
     __bind_key__ = 'LID'
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(100), unique=True)
+    model = db.Column(db.String(100))
     team = db.Column(db.String(100))
     link = db.Column(db.String(1000))
     rank = db.Column(db.Integer)
@@ -34,7 +48,7 @@ class LID(db.Model):
 class POS(db.Model):
     __bind_key__ = 'POS'
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(100), unique=True)
+    model = db.Column(db.String(100))
     team = db.Column(db.String(100))
     link = db.Column(db.String(1000))
     rank = db.Column(db.Integer)
@@ -43,7 +57,7 @@ class POS(db.Model):
 class NER(db.Model):
     __bind_key__ = 'NER'
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(100), unique=True)
+    model = db.Column(db.String(100))
     team = db.Column(db.String(100))
     link = db.Column(db.String(1000))
     rank = db.Column(db.Integer)
@@ -52,7 +66,7 @@ class NER(db.Model):
 class SA(db.Model):
     __bind_key__ = 'SA'
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(100), unique=True)
+    model = db.Column(db.String(100))
     team = db.Column(db.String(100))
     link = db.Column(db.String(1000))
     rank = db.Column(db.Integer)
@@ -61,7 +75,7 @@ class SA(db.Model):
 class MT(db.Model):
     __bind_key__ = 'MT'
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(100), unique=True)
+    model = db.Column(db.String(100))
     team = db.Column(db.String(100))
     link = db.Column(db.String(1000))
     rank = db.Column(db.Integer)

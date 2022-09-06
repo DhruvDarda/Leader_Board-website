@@ -18,28 +18,9 @@ main = Blueprint('main', __name__)
 leaderboard = Leaderboard()
 
 
-'''def get_db_connection():
-    conn = sqlite3.connect('LID.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
-def get_post():
-    conn = get_db_connection()
-    post = conn.execute('SELECT * FROM LID').fetchall()
-    conn.close()
-    if post is None:
-        abort(404)
-    return post'''
-
-
 @main.route("/")
 def index():
-    rowdel = flask.request.values.get("model")
-    scores = leaderboard.get_scores()
-    #scores = User.query.all()
-    return render_template("index.html",
-                           scores=scores)
+    return render_template("index.html")
 
 
 @main.route('/profile')  # profile page that return 'profile'
@@ -51,35 +32,46 @@ def profile():
 @main.route('/NER')  # profile page that return 'profile'
 @login_required
 def NER():
-    return render_template('NER.html', name=current_user.name)
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    conn.close()
+    return render_template('NER.html', post=post)
 
 
 @main.route('/POS')  # profile page that return 'profile'
 @login_required
 def POS():
-    return render_template('POS.html', name=current_user.name)
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    conn.close()
+    return render_template('POS.html', post=post)
 
 
 @main.route('/LID')  # profile page that return 'profile'
 @login_required
 def LID():
-    conn = sqlite3.connect('db_LID.sqlite')
-    post = conn.execute("SELECT * FROM LID").fetchall()
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
     conn.close()
-    print(post)
     return render_template('LID.html', post=post)
 
 
 @main.route('/SA')  # profile page that return 'profile'
 @login_required
 def SA():
-    return render_template('SA.html', name=current_user.name)
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    conn.close()
+    return render_template('SA.html', post=post)
 
 
 @main.route('/MT')  # profile page that return 'profile'
 @login_required
 def MT():
-    return render_template('MT.html', name=current_user.name)
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    conn.close()
+    return render_template('MT.html', post=post)
 
 
 @main.route("/uploader", methods=["GET", "POST"])

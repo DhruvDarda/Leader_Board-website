@@ -19,7 +19,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     # it is the path where the SQLite database file will be saved
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db_profile.sqlite'
-    app.config['SQLALCHEMY_BINDS'] = {'LID': 'sqlite:///db_LID.sqlite', 'NER': 'sqlite:///db_NER.sqlite',
+    app.config['SQLALCHEMY_BINDS'] = {'leaderboard': 'sqlite:///db_leaderboard.sqlite', 'LID': 'sqlite:///db_LID.sqlite', 'NER': 'sqlite:///db_NER.sqlite',
                                       'POS': 'sqlite:///db_POS.sqlite', 'SA': 'sqlite:///db_SA.sqlite', 'MT': 'sqlite:///db_MT.sqlite'}
     # deactivate Flask-SQLAlchemy track modifications
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
