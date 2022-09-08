@@ -53,7 +53,8 @@
                     <td>{{ score[1] }}</td>
                     <td>{{ score[3] }}</td>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
-                    <td><button type="submit" id='AdminDel' +score.id name='AdminDel' +score.id>Delete Entry</button>
+                    <td><button type="submit" id={{ score[0] }} name='AdminDel' value="Delete Entry">Delete
+                            Entry</button>
                     </td>
                     {% endif %}
                 </tr>

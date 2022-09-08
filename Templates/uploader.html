@@ -17,7 +17,7 @@
 
 <form action="http://localhost:5000/uploader" method="POST" enctype="multipart/form-data">
     <table class="table table-hover center" style="width:500px">
-        <input type="hidden" name="id" id="id" value={{ score.id }}></input>
+        <input type="hidden" name="id" id="id" value={{ score.id + 1 }}></input>
         <tr>
             <th>Model</th>
             <td><input type="text" class="col col-md-12 mt-0 h7" name="model" id="model" value={{ score.model
