@@ -30,7 +30,6 @@ def profile():
 
 
 @main.route('/NER')  # profile page that return 'profile'
-@login_required
 def NER():
     conn = sqlite3.connect('db_leaderboard.sqlite')
     post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
@@ -39,37 +38,41 @@ def NER():
 
 
 @main.route('/POS')  # profile page that return 'profile'
-@login_required
 def POS():
     conn = sqlite3.connect('db_leaderboard.sqlite')
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE pos>=0").fetchall()
     conn.close()
     return render_template('POS.html', post=post)
 
 
-@main.route('/LID')  # profile page that return 'profile'
-@login_required
+# profile page that return 'profile'
+@main.route('/LID', methods=["GET", "POST"])
 def LID():
     conn = sqlite3.connect('db_leaderboard.sqlite')
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    if request.method == 'POST':
+        if request.form['AdminDel'] == 'Delete Entry':
+            cursor = conn.cursor()
+            del_id = request.form['AdminDel'].id
+            print(del_id)
+            cursor.execute("DELETE FROM leaderboard_CM WHERE id == 2")
+            conn.commit()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE lid>=0").fetchall()
     conn.close()
     return render_template('LID.html', post=post)
 
 
 @main.route('/SA')  # profile page that return 'profile'
-@login_required
 def SA():
     conn = sqlite3.connect('db_leaderboard.sqlite')
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE sa>=0").fetchall()
     conn.close()
     return render_template('SA.html', post=post)
 
 
 @main.route('/MT')  # profile page that return 'profile'
-@login_required
 def MT():
     conn = sqlite3.connect('db_leaderboard.sqlite')
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE mt>=0").fetchall()
     conn.close()
     return render_template('MT.html', post=post)
 
