@@ -29,52 +29,79 @@ def profile():
     return render_template('profile.html', name=current_user.name)
 
 
-@main.route('/NER')  # profile page that return 'profile'
-def NER():
-    conn = sqlite3.connect('db_leaderboard.sqlite')
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
-    conn.close()
-    return render_template('NER.html', post=post)
-
-
-@main.route('/POS')  # profile page that return 'profile'
+@main.route("/POS/", methods=["GET", "POST"])
 def POS():
-    conn = sqlite3.connect('db_leaderboard.sqlite')
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE pos>=0").fetchall()
-    conn.close()
-    return render_template('POS.html', post=post)
-
-
-# profile page that return 'profile'
-@main.route('/LID', methods=["GET", "POST"])
-def LID():
+    path = 'Datasets/POS/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
     if request.method == 'POST':
-        if request.form['AdminDel'] == 'Delete Entry':
-            cursor = conn.cursor()
-            del_id = request.form['AdminDel'].id
-            print(del_id)
-            cursor.execute("DELETE FROM leaderboard_CM WHERE id == 2")
-            conn.commit()
+        # if request.form['AdminDel'][:12] == 'Delete Entry':
+        del_id = request.form['AdminDel']
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
+        conn.commit()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE pos>=0").fetchall()
+    conn.close()
+    return render_template("POS.html", post=post, datasets=os.listdir(path))
+
+
+@main.route("/LID/", methods=["GET", "POST"])
+def LID():
+    path = 'Datasets/LID/'
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    if request.method == 'POST':
+        # if request.form['AdminDel'][:12] == 'Delete Entry':
+        del_id = request.form['AdminDel']
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
+        conn.commit()
     post = conn.execute("SELECT * FROM leaderboard_CM WHERE lid>=0").fetchall()
     conn.close()
-    return render_template('LID.html', post=post)
+    return render_template("LID.html", post=post, datasets=os.listdir(path))
 
 
-@main.route('/SA')  # profile page that return 'profile'
-def SA():
+@main.route("/NER/", methods=["GET", "POST"])
+def NER():
+    path = 'Datasets/NER/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
+    if request.method == 'POST':
+        # if request.form['AdminDel'][:12] == 'Delete Entry':
+        del_id = request.form['AdminDel']
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
+        conn.commit()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    conn.close()
+    return render_template("NER.html", post=post, datasets=os.listdir(path))
+
+
+@main.route("/SA/", methods=["GET", "POST"])
+def SA():
+    path = 'Datasets/SA/'
+    conn = sqlite3.connect('db_leaderboard.sqlite')
+    if request.method == 'POST':
+        # if request.form['AdminDel'][:12] == 'Delete Entry':
+        del_id = request.form['AdminDel']
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
+        conn.commit()
     post = conn.execute("SELECT * FROM leaderboard_CM WHERE sa>=0").fetchall()
     conn.close()
-    return render_template('SA.html', post=post)
+    return render_template("SA.html", post=post, datasets=os.listdir(path))
 
 
-@main.route('/MT')  # profile page that return 'profile'
+@main.route("/MT/", methods=["GET", "POST"])
 def MT():
+    path = 'Datasets/MT/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
+    if request.method == 'POST':
+        # if request.form['AdminDel'][:12] == 'Delete Entry':
+        del_id = request.form['AdminDel']
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
+        conn.commit()
     post = conn.execute("SELECT * FROM leaderboard_CM WHERE mt>=0").fetchall()
     conn.close()
-    return render_template('MT.html', post=post)
+    return render_template("MT.html", post=post, datasets=os.listdir(path))
 
 
 @main.route("/uploader", methods=["GET", "POST"])

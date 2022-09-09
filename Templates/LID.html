@@ -10,28 +10,20 @@
         <span class="h1">LEADERBOARD</span>
     </div>
 </div>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="DataSet1-tab" data-bs-toggle="tab" data-bs-target="#DataSet1" type="button"
-            role="tab" aria-controls="DataSet1" aria-selected="true">DataSet1</button>
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+            role="tab" aria-controls="home-tab-pane" aria-selected="true">Rank & Datasets</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="DataSet2-tab" data-bs-toggle="tab" data-bs-target="#DataSet2" type="button"
-            role="tab" aria-controls="DataSet2" aria-selected="false">DataSet2</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="DataSet3-tab" data-bs-toggle="tab" data-bs-target="#DataSet3" type="button"
-            role="tab" aria-controls="DataSet3" aria-selected="false">DataSet3</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="DataSetSet-tab" data-bs-toggle="tab" data-bs-target="#DataSetSet" type="button"
-            role="tab" aria-controls="DataSetSet" aria-selected="false">Add DataSet</button>
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-add" type="button"
+            role="tab" aria-controls="pills-add" aria-selected="false">Add DataSet</button>
     </li>
 </ul>
 
-
-<div class="tab-content">
-    <div class="tab-pane active" id="DataSet1" role="tabpanel" aria-labelledby="DataSet1-tab">
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <table class="table table-hover center" style="width:800px">
             <thead>
                 <tr class="table-primary">
@@ -39,10 +31,12 @@
                     <th scope="col">Team</th>
                     <th scope="col">Model</th>
                     <th scope="col">Github Link</th>
+                    {% for data in datasets%}
+                    <th scope="col"> {{ data[4:-4] }} </th>
+                    {% endfor %}
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <th scope="col">Admin Rights</th>
                     {% endif %}
-
                 </tr>
             </thead>
             <tbody>
@@ -52,9 +46,14 @@
                     <td>{{ score[2] }}</td>
                     <td>{{ score[1] }}</td>
                     <td>{{ score[3] }}</td>
+                    <td> - </td>
+                    <td> - </td>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
-                    <td><button type="submit" id={{ score[0] }} name='AdminDel' value="Delete Entry">Delete
-                            Entry</button>
+                    <td>
+                        <form action="/LID/" method="post">
+                            <button type="submit" name='AdminDel' value="{{ score[0] }}">Delete
+                                Entry</button>
+                        </form>
                     </td>
                     {% endif %}
                 </tr>
@@ -62,59 +61,26 @@
             </tbody>
         </table>
     </div>
-    <div class="tab-pane" id="DataSet2" role="tabpanel" aria-labelledby="DataSet2-tab">
-        <table class="table table-hover center" style="width:800px">
-            <thead>
-                <tr class="table-primary">
-                    <th scope="col">Rank</th>
-                    <th scope="col">Team</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">LID</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for score in scores %}
-                <tr class="table-info">
-                    <th scope="row">{{ score.Rank }}</th>
-                    <td>{{ score.Team }}</td>
-                    <td>{{ score.Model }}</td>
-                    <td>{{ score.LID }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+    <div class="tab-pane fade" id="pills-add" role="tabpanel" aria-labelledby="pills-add-tab" tabindex="0">
+        <p>lol</p>
     </div>
-    <div class="tab-pane" id="DataSet2" role="tabpanel" aria-labelledby="DataSet2-tab">
-        <table class="table table-hover center" style="width:800px">
-            <thead>
-                <tr class="table-primary">
-                    <th scope="col">Rank</th>
-                    <th scope="col">Team</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">LID</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for score in scores %}
-                <tr class="table-info">
-                    <th scope="row">{{ score.Rank }}</th>
-                    <td>{{ score.Team }}</td>
-                    <td>{{ score.Model }}</td>
-                    <td>{{ score.LID }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="tab-pane" id="AddDataSet" role="tabpanel" aria-labelledby="AddDataSet-tab">...</div>
 </div>
 
 <script>
-    var firstTabEl = document.querySelector('#myTab li:last-child a')
-    var firstTab = new bootstrap.Tab(firstTabEl)
+    const triggerTabList = document.querySelectorAll('#pills-tab button')
+    triggerTabList.forEach(triggerEl => {
+        const tabTrigger = new bootstrap.Tab(triggerEl)
 
-    firstTab.show()
+        triggerEl.addEventListener('click', event => {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
 </script>
+
+<br>
+
 
 <div class="row">
     <div class="col col-md-1 offset-md-9">
