@@ -36,6 +36,7 @@ class Score():
 class Leaderboard_CM(db.Model):
     __bind_key__ = 'leaderboard'
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100))
     model = db.Column(db.String(100))
     team = db.Column(db.String(100))
     link = db.Column(db.String(1000))

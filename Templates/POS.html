@@ -32,7 +32,8 @@
                     <th scope="col">Model</th>
                     <th scope="col">Github Link</th>
                     {% for data in datasets%}
-                    <th scope="col"> {{ data[4:-4] }} </th>
+                    <th scope="col"> <a href="../Datasets/POS/{{ data }}" download="{{ data }}">
+                            {{ data[4:-4] }} </a></th>
                     {% endfor %}
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <th scope="col">Admin Rights</th>

@@ -32,7 +32,8 @@
                     <th scope="col">Model</th>
                     <th scope="col">Github Link</th>
                     {% for data in datasets%}
-                    <th scope="col"> {{ data[4:-4] }} </th>
+                    <th scope="col"> <a href="../Datasets/LID/{{ data }}" download="{{ data }}">
+                            {{ data[4:-4] }} </a></th>
                     {% endfor %}
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <th scope="col">Admin Rights</th>
@@ -42,10 +43,10 @@
             <tbody>
                 {% for score in post %}
                 <tr class="table-info">
-                    <th scope="row">{{ score[4] }}</th>
-                    <td>{{ score[2] }}</td>
-                    <td>{{ score[1] }}</td>
+                    <th scope="row">{{ score[5] }}</th>
                     <td>{{ score[3] }}</td>
+                    <td>{{ score[2] }}</td>
+                    <td>{{ score[4] }}</td>
                     <td> - </td>
                     <td> - </td>
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
@@ -60,6 +61,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="row">
+            <div class="col col-md-1 offset-md-9">
+                <input type="button" class="h6 mt-0 float-right text-center" value="➕ Add New Entry"
+                    onclick="location.href='/uploader'" />
+            </div>
+        </div>
     </div>
 
     <div class="tab-pane fade" id="pills-add" role="tabpanel" aria-labelledby="pills-add-tab" tabindex="0">
@@ -82,10 +89,5 @@
 <br>
 
 
-<div class="row">
-    <div class="col col-md-1 offset-md-9">
-        <input type="button" class="h6 mt-0 float-right text-center" value="➕ Add New Entry"
-            onclick="location.href='/uploader'" />
-    </div>
-</div>
+
 {%- endblock %}

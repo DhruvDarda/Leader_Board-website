@@ -1,7 +1,7 @@
 import flask
 import os
 import sqlite3
-from flask import Blueprint, render_template, url_for, request, redirect, abort
+from flask import Blueprint, render_template, url_for, request, redirect, abort, send_from_directory
 from models import Score
 from werkzeug.utils import secure_filename, redirect
 from flask_login import login_required, current_user
@@ -44,7 +44,13 @@ def POS():
     return render_template("POS.html", post=post, datasets=os.listdir(path))
 
 
-@main.route("/LID/", methods=["GET", "POST"])
+'''@main.route('/<path:filename>', methods=['GET'])
+def download(filename):
+    full_path = os.getcwd()
+    return send_from_directory(full_path, filename, as_attachment=True)'''
+
+
+@ main.route("/LID/", methods=["GET", "POST"])
 def LID():
     path = 'Datasets/LID/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
@@ -59,7 +65,7 @@ def LID():
     return render_template("LID.html", post=post, datasets=os.listdir(path))
 
 
-@main.route("/NER/", methods=["GET", "POST"])
+@ main.route("/NER/", methods=["GET", "POST"])
 def NER():
     path = 'Datasets/NER/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
@@ -74,7 +80,7 @@ def NER():
     return render_template("NER.html", post=post, datasets=os.listdir(path))
 
 
-@main.route("/SA/", methods=["GET", "POST"])
+@ main.route("/SA/", methods=["GET", "POST"])
 def SA():
     path = 'Datasets/SA/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
@@ -89,7 +95,7 @@ def SA():
     return render_template("SA.html", post=post, datasets=os.listdir(path))
 
 
-@main.route("/MT/", methods=["GET", "POST"])
+@ main.route("/MT/", methods=["GET", "POST"])
 def MT():
     path = 'Datasets/MT/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
@@ -104,8 +110,8 @@ def MT():
     return render_template("MT.html", post=post, datasets=os.listdir(path))
 
 
-@main.route("/uploader", methods=["GET", "POST"])
-@login_required
+@ main.route("/uploader", methods=["GET", "POST"])
+@ login_required
 def uploader():
     if request.method == 'POST':
         id = flask.request.values.get("id")
@@ -132,4 +138,5 @@ def uploader():
 
 app = create_app()
 db.create_all(app=create_app())
+print('lol')
 app.run(debug=True)
