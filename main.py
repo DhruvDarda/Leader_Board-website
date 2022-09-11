@@ -10,7 +10,7 @@ from __init__ import create_app, db
 from leaderboard import Leaderboard
 from models import *
 
-DEFAULT_ROUTE_LEADERBOARD = "main.index"
+LAST_PAGE = "main.index"
 DEFAULT_ROUTE_UPLOADER = "main.uploader"
 
 main = Blueprint('main', __name__)
@@ -20,6 +20,8 @@ leaderboard = Leaderboard()
 
 @main.route("/")
 def index():
+    global LAST_PAGE
+    LAST_PAGE = "main.index"
     return render_template("index.html")
 
 
@@ -31,6 +33,8 @@ def profile():
 
 @main.route("/POS/", methods=["GET", "POST"])
 def POS():
+    global LAST_PAGE
+    LAST_PAGE = "main.POS"
     path = 'Datasets/POS/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
     if request.method == 'POST':
@@ -52,6 +56,8 @@ def download(filename):
 
 @ main.route("/LID/", methods=["GET", "POST"])
 def LID():
+    global LAST_PAGE
+    LAST_PAGE = "main.LID"
     path = 'Datasets/LID/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
     if request.method == 'POST':
@@ -67,6 +73,8 @@ def LID():
 
 @ main.route("/NER/", methods=["GET", "POST"])
 def NER():
+    global LAST_PAGE
+    LAST_PAGE = "main.NER"
     path = 'Datasets/NER/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
     if request.method == 'POST':
@@ -82,6 +90,8 @@ def NER():
 
 @ main.route("/SA/", methods=["GET", "POST"])
 def SA():
+    global LAST_PAGE
+    LAST_PAGE = "main.SA"
     path = 'Datasets/SA/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
     if request.method == 'POST':
@@ -97,6 +107,8 @@ def SA():
 
 @ main.route("/MT/", methods=["GET", "POST"])
 def MT():
+    global LAST_PAGE
+    LAST_PAGE = "main.MT"
     path = 'Datasets/MT/'
     conn = sqlite3.connect('db_leaderboard.sqlite')
     if request.method == 'POST':
@@ -129,7 +141,7 @@ def uploader():
                       team=team_name, model_link=model_link, file_name=name, tasks=tasks)
         leaderboard.add_score(score)
 
-        return redirect(url_for(DEFAULT_ROUTE_LEADERBOARD))
+        return redirect(url_for(LAST_PAGE))
     else:
         score = Score(model="",
                       team="", model_link="")
