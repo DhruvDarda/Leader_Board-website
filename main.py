@@ -45,7 +45,7 @@ def POS():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE pos>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE pos>=0 order by pos desc").fetchall()
     conn.close()
     return render_template("POS.html", post=post, datasets=os.listdir(path))
 
@@ -62,7 +62,7 @@ def LID():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE lid>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE lid>=0  order by lid desc").fetchall()
     conn.close()
     return render_template("LID.html", post=post, datasets=os.listdir(path))
 
@@ -115,7 +115,7 @@ def NER():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE ner>=0 order by ner desc").fetchall()
     conn.close()
     return render_template("NER.html", post=post, datasets=os.listdir(path))
 
@@ -132,7 +132,7 @@ def SA():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE sa>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE sa>=0 order by sa desc").fetchall()
     conn.close()
     return render_template("SA.html", post=post, datasets=os.listdir(path))
 
@@ -149,7 +149,7 @@ def MT():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
-    post = conn.execute("SELECT * FROM leaderboard_CM WHERE mt>=0").fetchall()
+    post = conn.execute("SELECT * FROM leaderboard_CM WHERE mt>=0 order by mt desc").fetchall()
     conn.close()
     return render_template("MT.html", post=post, datasets=os.listdir(path))
 
