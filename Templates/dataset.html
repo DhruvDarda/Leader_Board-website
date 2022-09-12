@@ -1,0 +1,65 @@
+{%- extends "base.html" %}
+
+
+{% import "bootstrap/utils.html" as utils %}
+
+
+{% block content %}
+<form action="/datasetuploader" method="POST" enctype="multipart/form-data">
+    <table class="table table-hover center" style="width:500px">
+        <input type="hidden" name="id" id="id" ></input>
+        <tr>
+            <th>Datset Name</th>
+            <td><input type="text" class="col col-md-12 mt-0 h7" name="dataset" id="model"></input>
+            </td>
+        </tr>
+        <tr>
+            <th>Team</th>
+            <td><input type="text" class="col col-md-12 mt-0 h7" name="team" id="team" ></input>
+            </td>
+        </tr>
+        <tr>
+            <th>Dataset .zip file</th>
+            <td>
+                <input type="file" class="h7 mt-0 float-right text-center" name="file" /><br>
+                <input type="submit" class="h7 mt-0 float-right text-center" value="✔️ Submit" />
+            </td>
+        </tr>
+        <tr>
+            <th>Task</th>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" value = "LID" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        LID
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="POS" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        POS
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="NER" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        NER
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="SA" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        SA
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="MT" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        MT
+                    </label>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+{%- endblock %}

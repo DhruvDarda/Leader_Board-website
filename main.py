@@ -1,3 +1,5 @@
+import zipfile
+
 import flask
 import os
 import sqlite3
@@ -69,6 +71,18 @@ def LID():
     post = conn.execute("SELECT * FROM leaderboard_CM WHERE lid>=0").fetchall()
     conn.close()
     return render_template("LID.html", post=post, datasets=os.listdir(path))
+
+@ main.route("/datasetuploader", methods=["GET", "POST"])
+def d_upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        tasks = request.form.getlist('flexRadioDefault')
+        name = flask.request.values.get("dataset")
+        '''if name[-3:] != 'zip':
+            zipfile.ZipFile(os.path.join(os.getcwd(), 'Datasets') + name[-4:] + '.zip', mode='w').write(name)
+        else:'''
+        f.save(os.path.join(os.getcwd(), 'Datasets/LID', secure_filename(name)))
+    return render_template("dataset.html")
 
 
 @ main.route("/NER/", methods=["GET", "POST"])
