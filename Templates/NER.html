@@ -43,13 +43,13 @@
             <tbody>
                 {% for score in post %}
                 <tr class="table-info">
-                    <th scope="row">{{ score[5] }}</th>
+                    <th scope="row">{{ loop.index }}</th>
                     <td>{{ score[3] }}</td>
                     <td>{{ score[2] }}</td>
                     <td>{{ score[4] }}</td>
-                    {% for data in datasets%}
-                    <td> - </td>
-                    {% endfor %}
+<!--                    {% for data in datasets%}-->
+                    <td>{{ score[6] }}</td>
+<!--                    {% endfor %}-->
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <td>
                         <form action="/LID/" method="post">
