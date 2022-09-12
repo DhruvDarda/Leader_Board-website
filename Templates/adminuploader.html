@@ -1,0 +1,88 @@
+{%- extends "base.html" %}
+
+
+{% import "bootstrap/utils.html" as utils %}
+
+
+{% block content %}
+
+
+<div class="row mt-4">
+    <div class="col col-md-2 offset-md-5 alert alert-primary bg-blue text-white text-center">
+        <span class="h6">Add New Entry</span>
+    </div>
+</div>
+
+
+
+<form action="http://localhost:5000/uploader" method="POST" enctype="multipart/form-data">
+    <table class="table table-hover center" style="width:500px">
+        <input type="hidden" name="id" id="id" value={{ score.id + 1 }}></input>
+        <tr>
+            <th>Model</th>
+            <td><input type="text" class="col col-md-12 mt-0 h7" name="model" id="model" value={{ score.model
+                    }}></input>
+            </td>
+        </tr>
+        <tr>
+            <th>Team</th>
+            <td><input type="text" class="col col-md-12 mt-0 h7" name="team" id="team" value={{ score.team }}></input>
+            </td>
+        </tr>
+        <tr>
+            <th>Github Link</th>
+            <td><input type="text" class="col col-md-12 mt-0 h7" name="model_link" id="model_link" value={{
+                    score.model_link }}></input></td>
+        </tr>
+        <tr>
+            <th>Task</th>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="LID" name="flexCheckChecked"
+                        name="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        LID
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="POS" name="flexCheckChecked"
+                        name="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        POS
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="NER" name="flexCheckChecked"
+                        name="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        NER
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="SA" name="flexCheckChecked"
+                        name="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        SA
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="MT" name="flexCheckChecked"
+                        name="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        MT
+                    </label>
+                </div>
+            </td>
+        </tr>
+        {% for data in datasets%}
+        <tr>
+            <th>{{ data[4:-4] }}</th>
+            <td><input type="text" class="col col-md-12 mt-0 h7" name="model" id="model" value="lol"></input>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+
+
+{%- endblock %}

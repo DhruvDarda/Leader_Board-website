@@ -50,12 +50,6 @@ def POS():
     return render_template("POS.html", post=post, datasets=os.listdir(path))
 
 
-'''@main.route('/<path:filename>', methods=['GET'])
-def download(filename):
-    full_path = os.getcwd()
-    return send_from_directory(full_path, filename, as_attachment=True)'''
-
-
 @ main.route("/LID/", methods=["GET", "POST"])
 def LID():
     global LAST_PAGE
@@ -72,17 +66,41 @@ def LID():
     conn.close()
     return render_template("LID.html", post=post, datasets=os.listdir(path))
 
+
 @ main.route("/datasetuploader", methods=["GET", "POST"])
 def d_upload():
     if request.method == 'POST':
         f = request.files['file']
-        tasks = request.form.getlist('flexRadioDefault')
+        task = request.form.getlist('flexRadioDefault')
         name = flask.request.values.get("dataset")
-        '''if name[-3:] != 'zip':
-            zipfile.ZipFile(os.path.join(os.getcwd(), 'Datasets') + name[-4:] + '.zip', mode='w').write(name)
-        else:'''
-        f.save(os.path.join(os.getcwd(), 'Datasets/LID', secure_filename(name)))
+        f.save(os.path.join(os.getcwd(), 'Datasets/' + task, secure_filename(name)))
     return render_template("dataset.html")
+
+
+'''@ main.route()("/adminuploader", methods=["GET", "POST"])
+@ login_required
+def uploader():
+
+    if request.method == 'POST':
+        id = flask.request.values.get("id")
+        model_name = flask.request.values.get("model")
+        team_name = flask.request.values.get("team")
+        model_link = flask.request.values.get("model_link")
+        tasks = request.form.getlist('flexCheckChecked')
+        now = datetime.now()
+        name = model_name + '_' + team_name + '_' + \
+            now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
+
+        score = Score(id=id, model=model_name,
+                      team=team_name, model_link=model_link, file_name=name, tasks=tasks)
+        leaderboard.add_score(score)
+
+        return redirect(url_for(LAST_PAGE))
+    else:
+        score = Score(model="",
+                      team="", model_link="")
+        return render_template("uploader.html", score=score)
+'''
 
 
 @ main.route("/NER/", methods=["GET", "POST"])
