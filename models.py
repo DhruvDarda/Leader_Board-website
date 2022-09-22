@@ -46,3 +46,11 @@ class Leaderboard_CM(db.Model):
     pos = db.Column(db.Float)
     sa = db.Column(db.Float)
     mt = db.Column(db.Float)
+
+
+class Dataset(db.Model):
+    __bind_key__ = 'dataset'
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(10))
+    dataset_name = db.Column(db.String(100))
+    location = db.Column(db.String(500))

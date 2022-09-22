@@ -2,13 +2,17 @@
 #################        Importing packages      #######################
 ########################################################################
 from flask import Flask
+import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+import flask_sijax
 
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
+
+path = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
 
 
 def create_app():
@@ -17,13 +21,16 @@ def create_app():
     Bootstrap(app)
     # it is used by Flask and extensions to keep data safe
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    app.config['SIJAX_STATIC_PATH'] = path
+    app.config['SIJAX_JSON_URI'] = '/static/js/sijax/json2.js'
     # it is the path where the SQLite database file will be saved
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db_profile.sqlite'
     app.config['SQLALCHEMY_BINDS'] = {
-        'leaderboard': 'sqlite:///db_leaderboard.sqlite'}
+        'leaderboard': 'sqlite:///db_leaderboard.sqlite', 'dataset':'sqlite:///db_dataset.sqlite'}
     # deactivate Flask-SQLAlchemy track modifications
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)  # Initialiaze sqlite database
+    flask_sijax.Sijax(app)
     # The login manager contains the code that lets your application and Flask-Login work together
     login_manager = LoginManager()  # Create a Login Manager instance
     # define the redirection path when login required and we attempt to access without being logged in
