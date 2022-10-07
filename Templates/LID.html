@@ -25,19 +25,19 @@
 
 <div class="container-sm">
     <form action="/LID/" method="post" name="Selection">
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" id="metric_selection">
             <option selected>Open this select menu</option>
             <option value="1">Accuracy</option>
         </select>
 
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" id="dataset_selection">
             <option selected>Open this select menu</option>
             {% for (_, daname) in datasets_names%}
             <option value="1">{{ daname }}</option>
             {% endfor %}
         </select>
 
-        <input type="submit">
+        <!--<input type="submit" name="Selection" , value="">-->
     </form>
 </div>
 
@@ -120,6 +120,17 @@
 
 <br>
 
+<script>
+    let metric_select = document.getElementById(metric_selection);
+    let dataset_select = document.getElementById(dataset_selection);
+
+    metric_select.onchange = function () {
+        metric = metric_select.value;
+        fetch(metric).then(function (response) {
+            alert(response)
+        })
+    }
+</script>
 
 
 {%- endblock %}

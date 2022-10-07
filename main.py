@@ -79,7 +79,6 @@ def LID():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
-
     post = conn.execute(
         "SELECT * FROM leaderboard_CM WHERE lid>=0  order by lid desc").fetchall()
     conn.close()
@@ -89,11 +88,25 @@ def LID():
     name = conn.execute(
         "SELECT dataset_name FROM dataset WHERE task=='LID' ").fetchall()
     conn.close()
-    '''form = TableUpdateForm()
-    form.datasets.choices = [(path[i], name[i])
-                             for i in range(len(path))]
-    '''
     return render_template("LID.html", post=post, datasets_names=zip(path, name))
+
+
+@main.route("/<dataset>")
+def dataset_update(dataset):
+    conn = sqlite3.connect('db_dataset.sqlite')
+    path = conn.execute(
+        "SELECT location FROM dataset WHERE task=='{task}' AND dataset_name=={datasetn} ".format(task=LAST_PAGE[5:], datasetn=dataset)).fetchall()
+    name = conn.execute(
+        "SELECT dataset_name FROM dataset WHERE task=='{task}' AND dataset_name=={datasetn} ".format(task=LAST_PAGE[5:], datasetn=dataset)).fetchall()
+    conn.close()
+    return zip(path, name)
+
+
+@main.route("/<metric>")
+def metric_update(metric):
+    if metric == "Accuracy":
+        pass
+    return metric
 
 
 @ main.route("/datasetuploader", methods=["GET", "POST"])
