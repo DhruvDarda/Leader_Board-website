@@ -22,6 +22,26 @@
     </li>
 </ul>
 
+
+<div class="container-sm">
+    <form action="/LID/" method="post" name="Selection">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="1">Accuracy</option>
+        </select>
+
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            {% for (_, daname) in datasets_names%}
+            <option value="1">{{ daname }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit">
+    </form>
+</div>
+
+
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <table class="table table-hover center" style="width:800px">
@@ -31,8 +51,8 @@
                     <th scope="col">Team</th>
                     <th scope="col">Model</th>
                     <th scope="col">Github Link</th>
-                    {% for data in datasets%}
-                    <th scope="col"> <a href="../Datasets/LID/{{ data }}" download="{{ data }}">
+                    {% for (data, daname) in datasets_names%}
+                    <th scope="col"> <a href="../Datasets/LID/{{ data }}" download="{{ daname }}">
                             {{ data[4:-4] }} </a></th>
                     {% endfor %}
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
@@ -47,12 +67,12 @@
                     <td>{{ score[3] }}</td>
                     <td>{{ score[2] }}</td>
                     <td>{{ score[4] }}</td>
-<!--                    {% for data in datasets%}-->
+                    <!--                    {% for data in datasets%}-->
                     <td> {{ score[5] }} </td>
-<!--                    {% endfor %}-->
+                    <!--                    {% endfor %}-->
                     {% if current_user.email == 'dhruvdarda2001@outlook.com' %}
                     <td>
-                        <form action="/LID/" method="post">
+                        <form action="/LID/" method="post" name="AdminDel">
                             <button type="submit" name='AdminDel' value="{{ score[0] }}">Delete
                                 Entry</button>
                         </form>

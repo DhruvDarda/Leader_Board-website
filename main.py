@@ -5,6 +5,7 @@ import flask
 import os
 import sqlite3
 from flask import Blueprint, render_template, url_for, request, redirect, abort, send_from_directory
+#from sklearn import metrics
 from models import Score
 from werkzeug.utils import secure_filename, redirect
 from flask_login import login_required, current_user
@@ -33,6 +34,17 @@ def index():
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
+
+
+class TableUpdateForm(FlaskForm):
+    '''conn = sqlite3.connect('db_dataset.sqlite')
+    path = conn.execute(
+        "SELECT location FROM dataset WHERE task=='{}' ".format(task)).fetchall()
+    conn.close()'''
+    metrics = SelectField(
+        'metrics', choices=[('Accuracy', 'Accuracy'), ('RSME', 'RSME')])
+    datasets = SelectField(
+        'datasets', choices=[])
 
 
 @main.route("/POS/", methods=["GET", "POST"])
@@ -67,14 +79,21 @@ def LID():
         cursor = conn.cursor()
         cursor.execute("DELETE FROM leaderboard_CM WHERE id == " + del_id)
         conn.commit()
+
     post = conn.execute(
         "SELECT * FROM leaderboard_CM WHERE lid>=0  order by lid desc").fetchall()
     conn.close()
     conn = sqlite3.connect('db_dataset.sqlite')
     path = conn.execute(
         "SELECT location FROM dataset WHERE task=='LID' ").fetchall()
+    name = conn.execute(
+        "SELECT dataset_name FROM dataset WHERE task=='LID' ").fetchall()
     conn.close()
-    return render_template("LID.html", post=post, datasets=path)
+    '''form = TableUpdateForm()
+    form.datasets.choices = [(path[i], name[i])
+                             for i in range(len(path))]
+    '''
+    return render_template("LID.html", post=post, datasets_names=zip(path, name))
 
 
 @ main.route("/datasetuploader", methods=["GET", "POST"])
