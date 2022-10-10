@@ -4,7 +4,7 @@ from flask_wtf.file import FileField, FileRequired
 import flask
 import os
 import sqlite3
-from flask import Blueprint, render_template, url_for, request, redirect, abort, send_from_directory
+from flask import Blueprint, render_template, url_for, request, redirect, abort, send_from_directory, jsonify
 #from sklearn import metrics
 from models import Score
 from werkzeug.utils import secure_filename, redirect
@@ -88,7 +88,8 @@ def LID():
     name = conn.execute(
         "SELECT dataset_name FROM dataset WHERE task=='LID' ").fetchall()
     conn.close()
-    return render_template("LID.html", post=post, datasets_names=zip(path, name))
+    print(name)
+    return render_template("LID.html", post=post, datasets_names=list(zip(path, name)))
 
 
 @main.route("/<dataset>")
@@ -99,7 +100,14 @@ def dataset_update(dataset):
     name = conn.execute(
         "SELECT dataset_name FROM dataset WHERE task=='{task}' AND dataset_name=={datasetn} ".format(task=LAST_PAGE[5:], datasetn=dataset)).fetchall()
     conn.close()
-    return zip(path, name)
+    print(name)
+    dataset_array = []
+    for i in range(len(path)):
+        dataset_obj = {}
+        dataset_obj['path'] = path
+        dataset_obj['name'] = name
+        dataset_array.append(dataset_obj)
+    return jsonify({'datasetlist': dataset_array})  # list(zip(path, name))
 
 
 @main.route("/<metric>")
@@ -218,5 +226,4 @@ def uploader():
 
 app = create_app()
 db.create_all(app=create_app())
-print('lol')
 app.run(debug=True)
